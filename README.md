@@ -38,7 +38,7 @@ contains<5>(arr, target);
 
 As nice as streams are, input output in C++ seems quite archaic compared to Python. With libraries such as Click, command line arguments to a Python script are incredibly easy to parse. We provide some argument parsing capability in `argparse`, which returns a vector of templated type. The function performs the appropriate conversions from `argc` and `argv`.
 
-The header also defines a stream insertion operator for `std::pair` types. This feeds directly into the incredibly useful `print_range` function, which takes an iterator range. The `split` and `end` parameters can be used to change the string used *between* entries as well as the string used *after* every entry. Together, they can easily print out ranges for both non-associative and associative data structures since iterators for the latter dereference into `std::pair`.
+The header also defines a stream insertion operator for `std::pair` types. This feeds directly into the incredibly useful `print_range` function, which takes an iterator range. The `sep` and `end` parameters can be used to change the string used *between* entries as well as the string used *after* every entry. Together, they can print out ranges for both non-associative and associative data structures since iterators for the latter dereference into `std::pair`.
 
 ```c++
 std::unordered_map<int, int> square {
