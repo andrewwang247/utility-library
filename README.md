@@ -1,6 +1,6 @@
 # Utility Template Library
 
-A templated C++17 utility library emulating Python/Bash functionality. To get started, simply include any combination of the 4 headers: `containment.h`, `io.h`, `range.h`, and `zip.h`. We showcase elegant examples of each utility in `demo.cpp`.
+A templated C++17 utility library emulating Python/Bash functionality. To get started, simply include any combination of the 5 headers: `containment.h`, `enumerate.h` `io.h`, `range.h`, and `zip.h`. We showcase elegant examples of each utility in `demo.cpp`.
 
 ## Containment
 
