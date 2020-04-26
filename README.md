@@ -34,19 +34,37 @@ std::find(arr, arr + 5, target) != arr + 5;
 contains<5>(arr, target);
 ```
 
+## Enumerate
+
+The Pythonic way to range over a container alongside the index is to use `enumerate`. In C++, the index and container entries are dealt with separately. This problem is especially annoying for containers that do not support random access. This library provides a templated `enumerate` class that allows for easy indexed traversal. It takes a container (by reference) and a start index (default 0), just like in Python. Parallel traversal and index incrementing logic is abstracted out. The custom `enumerate::iterator` and  `begin`, `end` functions yield a clean for-range syntax.
+
+```c++
+const std::vector<int> pi {3, 1, 4, 1, 5, 9};
+// Start indexing at 2.
+for (auto pr : enumerate(pi, 2)) {
+    // pr is of type std::pair<size_t, int>
+    std::cout << pr << ' ';
+}
+// (2, 3) (3, 1) (4, 4) (5, 1) (6, 5) (7, 9)
+// Start indexing at 0 (default).
+const auto indexed = enumerate(pi)
+print_range(indexed.begin(), indexed.end());
+// (0, 3) (1, 1) (2, 4) (3, 1) (4, 5) (5, 9)
+```
+
 ## IO
 
-As nice as streams are, input output in C++ seems quite archaic compared to Python. With libraries such as Click, command line arguments to a Python script are incredibly easy to parse. We provide some argument parsing capability in `argparse`, which returns a vector of templated type. The function performs the appropriate conversions from `argc` and `argv`.
+As nice as streams are, input output in C++ can, at times, seem a bit archaic compared to Python. With libraries such as Click, command line arguments to a Python script are incredibly easy to parse. We provide some argument parsing capability in `argparse`, which returns a vector of templated type. The function performs the appropriate conversions from `argc` and `argv`.
 
 The header also defines a stream insertion operator for `std::pair` types. This feeds directly into the incredibly useful `print_range` function, which takes an iterator range. The `sep` and `end` parameters can be used to change the string used *between* entries as well as the string used *after* every entry. Together, they can print out ranges for both non-associative and associative data structures since iterators for the latter dereference into `std::pair`.
 
 ```c++
-std::unordered_map<int, int> square {
+const std::unordered_map<int, int> square {
     {1, 1}, {2, 4}, {3, 9}, {4, 16}
 };
 print_range(square.begin(), square.end());
 // (1, 1) (2, 4) (3, 9) (4, 16)
-std::vector<int> jenny {8, 6, 7, 5, 3, 0, 9};
+const std::vector<int> jenny {8, 6, 7, 5, 3, 0, 9};
 print_range(jenny.begin(), jenny.end(), " - ", " :)\n");
 // 8 - 6 - 7 - 5 - 3 - 0 - 9 :)
 ```
@@ -54,9 +72,9 @@ print_range(jenny.begin(), jenny.end(), " - ", " :)\n");
 Last but not least, we are often interested in the character, word, and line count for a file. At the command line, this is achieved using `wc file.txt`. The library provides the following functionality.
 
 ```c++
-auto character_count = wc<char>("file.txt");
-auto word_count = wc<std::string>("file.txt");
-auto line_count = wc<line>("file.txt");
+const auto character_count = wc<char>("file.txt");
+const auto word_count = wc<std::string>("file.txt");
+const auto line_count = wc<line>("file.txt");
 ```
 
 Here, `line` is an empty struct used to specialize the template. More exotic template parameters can also be provided.
@@ -78,9 +96,9 @@ new_game = '**'.join(words)
 // IN C++
 const std::string game = "watch&*dogs&*2";
 const std::string delim = "&*";
-auto words = split(game, delim);
+const auto words = split(game, delim);
 // ["watch", "dogs", "2"]
-auto new_game = join(words.begin(), words.end(), "**");
+const auto new_game = join(words.begin(), words.end(), "**");
 // "watch**dogs**2"
 ```
 
@@ -123,17 +141,17 @@ Parallel iteration in C++ requires one to:
 - If iterating by index, use the smaller one's size and call `container[i]` for both.
 - If iterating by iterator, keep a separate iterator for the larger container.
 
-We lose the nice syntax of the for-range loop. In Python, this is solved by using `zip` which take several iterable objects. This library provides a templated `zip` class that solves the problems listed above. Unlike Python, it can only take a pair of containers (by reference). However, it hides the boiler-plate of getting the relative size and doing parallel iteration. The custom `zip::iterator` and  `begin` and `end` functions yields a clean for-range syntax.
+We lose the nice syntax of the for-range loop. In Python, this is solved by using `zip` which take several iterable objects. This library provides a templated `zip` class that solves the problems listed above. Unlike Python, it can only take a pair of containers (by reference). However, it hides the boiler-plate of getting the relative size and doing parallel iteration. The custom `zip::iterator` and  `begin`, `end` functions yield a clean for-range syntax.
 
 ```c++
-std::vector<int> jenny {8, 6, 7, 5, 3, 0, 9};
-std::string zippy = "zippy";
+const std::vector<int> jenny {8, 6, 7, 5, 3, 0, 9};
+const std::string zippy = "zippy";
 for (auto pr : zip(jenny, zippy)) {
     // pr is of type std::pair<int, char>
     std::cout << pr << ' ';
 }
 // (8, z) (6, i) (7, p) (5, p) (3, y)
-auto parallel = zip(zippy, jenny);
+const auto parallel = zip(zippy, jenny);
 print_range(parallel.begin(), parallel.end());
 // (z, 8) (i, 6) (p, 7) (p, 5) (y, 3)
 ```

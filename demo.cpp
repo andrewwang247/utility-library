@@ -3,7 +3,6 @@ Copyright 2020. Siwei Wang.
 
 Demo functionality.
 */
-#include <algorithm>
 #include <iostream>
 #include <string>
 #include <unordered_map>
@@ -12,12 +11,12 @@ Demo functionality.
 #include <vector>
 
 #include "containment.h"
+#include "enumerate.h"
 #include "io.h"
 #include "range.h"
 #include "zip.h"
 
 using std::cout;
-using std::for_each;
 using std::pair;
 using std::string;
 using std::unordered_map;
@@ -25,12 +24,14 @@ using std::unordered_set;
 using std::vector;
 
 void demo_contains();
+void demo_enumerate();
 void demo_io();
 void demo_range();
 void demo_zip();
 
 int main() {
   demo_contains();
+  demo_enumerate();
   demo_io();
   demo_range();
   demo_zip();
@@ -57,6 +58,22 @@ void demo_contains() {
   if (!contains(names, string("yolanda"))) {
     cout << "yolanda is not contained.\n";
   }
+}
+
+void demo_enumerate() {
+  cout << "\n--- ENUMERATE DEMO ---\n";
+  const vector<string> vec{"iterate", "over", "this", "with", "the", "index"};
+  cout << "Original list:\n\t";
+  print_range(vec.begin(), vec.end(), ", ");
+
+  cout << "For-range loop, start at 7:\n\t";
+  for (auto pr : enumerate(vec, 7)) {
+    cout << pr << ' ';
+  }
+
+  cout << "\nRange of pairs, default start:\n\t";
+  const auto indexed = enumerate(vec);
+  print_range(indexed.begin(), indexed.end());
 }
 
 void demo_io() {
@@ -118,6 +135,5 @@ void demo_zip() {
 
   cout << "\nLetters then numbers:\n";
   const auto join = zip(str, vec);
-  for_each(join.begin(), join.end(), [](const auto& pr) { cout << pr << ' '; });
-  cout << '\n';
+  print_range(join.begin(), join.end());
 }

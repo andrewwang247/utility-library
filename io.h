@@ -19,7 +19,7 @@ Tools for input output.
  * of a given type. Attempts to perform conversion.
  */
 template <typename T = std::string>
-std::vector<T> argparse(int argc, char **argv) {
+std::vector<T> argparse(int argc, const char **argv) {
   // Get some qualifications out of the way.
   static_assert(!std::is_const_v<T>);
   static_assert(!std::is_pointer_v<T> && !std::is_reference_v<T>);

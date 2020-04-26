@@ -68,12 +68,12 @@ class zip {
   };
 
   /**
-   * An iterator to the first element.
+   * An iterator to the first pair.
    */
   iterator begin() const;
 
   /**
-   * An iterator to one past the last element.
+   * An iterator to one past the last pair.
    */
   iterator end() const;
 };
