@@ -13,6 +13,7 @@ Demo functionality.
 #include "containment.h"
 #include "enumerate.h"
 #include "io.h"
+#include "product.h"
 #include "range.h"
 #include "zip.h"
 
@@ -26,6 +27,7 @@ using std::vector;
 void demo_contains();
 void demo_enumerate();
 void demo_io();
+void demo_product();
 void demo_range();
 void demo_zip();
 
@@ -33,6 +35,7 @@ int main() {
   demo_contains();
   demo_enumerate();
   demo_io();
+  demo_product();
   demo_range();
   demo_zip();
 }
@@ -89,6 +92,23 @@ void demo_io() {
                                         {"lines", wc<line>("io.h")}};
   cout << "Stats for io.h: ";
   print_range(counter.begin(), counter.end(), " -> ");
+}
+
+void demo_product() {
+  cout << "\n-- PRODUCT DEMO --\n";
+  const string s1 = "abc";
+  const string s2 = "123";
+
+  cout << "Iterating over cartesian product: \"abc\" x \"123\".\n\t";
+
+  for (auto pr : product(s1, s2)) {
+    cout << pr << ' ';
+  }
+  cout << '\n';
+
+  cout << "Iterating over cartesian product: \"123\" x \"abc\".\n\t";
+  const product prod(s2, s1);
+  print_range(prod.begin(), prod.end());
 }
 
 void demo_range() {

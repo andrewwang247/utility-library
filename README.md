@@ -79,6 +79,45 @@ const auto line_count = wc<line>("file.txt");
 
 Here, `line` is an empty struct used to specialize the template. More exotic template parameters can also be provided.
 
+## Product
+
+Often times, we wish to iterate over the cartesian product of two containers. In C++, this requires a nested `for` loop. On the other hand, Python's `itertools` packages offers `product`, which allows the same iteration to be performed with a single `for` loop. This library provides a templated `product` class that takes a range-based approach to the cartesian product. The `begin` and `end` functions yield `product::iterator` objects that demark the product range.
+
+```python
+# IN PYTHON
+from itertools import product
+
+s1 = 'abc'
+s2 = '123'
+for x, y in product(s1, s2):
+    print(f'({x}, {y})', end=' ')
+# (a, 1) (a, 2) (a, 3) (b, 1) (b, 2) (b, 3) (c, 1) (c, 2) (c, 3)
+```
+
+```c++
+// IN C++
+const string s1 = "abc";
+const string s2 = "123";
+
+// OLD WAY
+for (char x : s1) {
+    for (char y : s2) {
+        std::cout << std::make_pair(x, y) << ' ';
+    }
+}
+// (a, 1) (a, 2) (a, 3) (b, 1) (b, 2) (b, 3) (c, 1) (c, 2) (c, 3)
+
+// NEW WAY
+for (auto pr : product(s1, s2)) {
+    // pr is a pair of chars.
+    std::cout << pr << ' ';
+}
+// (a, 1) (a, 2) (a, 3) (b, 1) (b, 2) (b, 3) (c, 1) (c, 2) (c, 3)
+const auto prod = product(s2, s1);
+print_range(prod.begin(), prod.end());
+// (1, a) (1, b) (1, c) (2, a) (2, b) (2, c) (3, a) (3, b) (3, c)
+```
+
 ## Range
 
 Three extremely useful features in Python are splitting, joining, and slicing. The first two are generally performed on strings while slicing is done on lists. The following split and join operation has a sister function in the utility library.

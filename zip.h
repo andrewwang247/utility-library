@@ -10,7 +10,7 @@ Python-like parallel iteration for two containers.
 
 /**
  * Templated zipper class for read-only parallel iteration.
- * REQUIRES: c1 and c2 are forward_iterable.
+ * REQUIRES: C1 and C2 are forward_iterable.
  */
 template <typename C1, typename C2>
 class zip {
@@ -29,12 +29,11 @@ class zip {
   // Declare forward iterators.
   class iterator
       : public std::iterator<
-            std::forward_iterator_tag,
-            std::pair<typename C1::value_type, typename C2::value_type>,
-            ptrdiff_t,
-            const std::pair<typename C1::value_type, typename C2::value_type> *,
-            const std::pair<typename C1::value_type, typename C2::value_type>
-                &> {
+          std::forward_iterator_tag,
+          std::pair<typename C1::value_type, typename C2::value_type>,
+          ptrdiff_t,
+          const std::pair<typename C1::value_type, typename C2::value_type> *,
+          const std::pair<typename C1::value_type, typename C2::value_type> &> {
     friend class zip;
 
    private:
