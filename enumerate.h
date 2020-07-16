@@ -111,8 +111,8 @@ inline typename enumerate<C>::iterator enumerate<C>::iterator::operator++(int) {
 }
 
 template <typename C>
-inline std::pair<size_t, typename C::value_type>
-    enumerate<C>::iterator::operator*() const {
+inline std::pair<size_t, typename C::value_type> enumerate<C>::iterator::
+operator*() const {
   return std::make_pair(sz, *iter);
 }
 

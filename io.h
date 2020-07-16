@@ -56,9 +56,8 @@ std::ostream &operator<<(std::ostream &os, const std::pair<S, T> &p) {
  * Entries are separated by sep.
  */
 template <typename InputIterator>
-void print_range(InputIterator start, InputIterator stop,
-                 std::string sep = " ", std::string end = "\n",
-                 std::ostream &os = std::cout) {
+void print_range(InputIterator start, InputIterator stop, std::string sep = " ",
+                 std::string end = "\n", std::ostream &os = std::cout) {
   for (auto iter = start; iter != stop; ++iter) {
     if (std::next(iter) != stop)
       os << *iter << sep;
