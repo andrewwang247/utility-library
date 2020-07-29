@@ -15,6 +15,7 @@ Demo functionality.
 #include "io.h"
 #include "product.h"
 #include "range.h"
+#include "sequence.h"
 #include "zip.h"
 
 using std::cout;
@@ -29,6 +30,7 @@ void demo_enumerate();
 void demo_io();
 void demo_product();
 void demo_range();
+void demo_sequence();
 void demo_zip();
 
 int main() {
@@ -37,6 +39,7 @@ int main() {
   demo_io();
   demo_product();
   demo_range();
+  demo_sequence();
   demo_zip();
 }
 
@@ -113,6 +116,19 @@ void demo_product() {
 
 void demo_range() {
   cout << "\n--- RANGE DEMO ---\n";
+  cout << "range(10): ";
+  for (auto i : range(10)) cout << i << ' ';
+  cout << "\nrange(-7): ";
+  for (auto i : range(-7)) cout << i << ' ';
+  cout << "\nrange(-5, 4): ";
+  for (auto i : range(-5, 4)) cout << i << ' ';
+  cout << "\nrange(4, -5): ";
+  for (auto i : range(4, -5)) cout << i << ' ';
+  cout << '\n';
+}
+
+void demo_sequence() {
+  cout << "\n--- SEQUENCE DEMO ---\n";
   const vector<int> nums{0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
 
   cout << "Slicing nums 0-9 inclusive.\n";

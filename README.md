@@ -120,6 +120,39 @@ print_range(prod.begin(), prod.end());
 
 ## Range
 
+One of Python's most recognizable features is the `range` function which allows iteration over a numerical sequence. This library provides a `range` class that performs the same function.
+
+```python
+# IN PYTHON
+
+for i in range(stop):
+    print(i)
+# 0, 1, 2, ..., stop - 1
+for j in range(start, stop):
+    print(j)
+# start, start + 1, ..., stop - 1
+```
+
+The utility library version of range has the additional benefit of automatically comparing start and stop, then applying either increment or decrement based on the comparison result.
+
+```c++
+// IN C++
+
+for (auto i = 0; i != stop; ++i) {}
+// if stop >= 0 or
+for (auto i = 0; i != stop; --i) {}
+// if stop <= 0 is equivalent to
+for (auto i : range(stop)) {}
+
+for (auto j = start; j != stop; ++j) {}
+// if start <= stop or
+for (auto j = start; j != stop; --j) {}
+// if start >= stop is equivalent to
+for (auto j : range(start, stop)) {}
+```
+
+## Sequence
+
 Three extremely useful features in Python are splitting, joining, and slicing. The first two are generally performed on strings while slicing is done on lists. The following split and join operation has a sister function in the utility library.
 
 ```python
