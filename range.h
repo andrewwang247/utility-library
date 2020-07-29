@@ -27,8 +27,11 @@ class range {
    */
   explicit range(T start, T stop);
 
-  class iterator : public std::iterator<std::forward_iterator_tag, T, ptrdiff_t,
-                                        const T *, const T &> {
+  /**
+   * Bidirectional iterators on range.
+   */
+  class iterator : public std::iterator<std::bidirectional_iterator_tag, T,
+                                        ptrdiff_t, const T *, const T &> {
     friend class range;
 
    private:
@@ -60,6 +63,11 @@ class range {
 
     iterator &operator++();
     iterator operator++(int);
+
+    // Decrement operator.
+
+    iterator &operator--();
+    iterator operator--(int);
 
     // Dereference operator.
 
@@ -114,6 +122,19 @@ template <typename T>
 inline typename range<T>::iterator range<T>::iterator::operator++(int) {
   auto temp(*this);
   this->operator++();
+  return temp;
+}
+
+template <typename T>
+inline typename range<T>::iterator &range<T>::iterator::operator--() {
+  is_forward ? --m_current : ++m_current;
+  return *this;
+}
+
+template <typename T>
+inline typename range<T>::iterator range<T>::iterator::operator--(int) {
+  auto temp(*this);
+  this->operator--();
   return temp;
 }
 
