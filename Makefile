@@ -1,7 +1,7 @@
 # Compiler and flags.
 CXX := g++ -std=c++17
-FLAGS := -Wall -Werror -Wextra -Wconversion -pedantic -Wfloat-equal -Wduplicated-branches -Wduplicated-cond -Wshadow -Wdouble-promotion -Wundef 
-OPT := -Ofast -DNDEBUG
+FLAGS := -Wall -Werror -Wextra -Wconversion -pedantic -Wfloat-equal -Wshadow -Wdouble-promotion -Wundef 
+OPT := -O3 -DNDEBUG
 
 # Executable name.
 EXE := demo

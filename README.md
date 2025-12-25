@@ -40,15 +40,13 @@ The Pythonic way to range over a container alongside the index is to use `enumer
 
 ```c++
 const std::vector<int> pi {3, 1, 4, 1, 5, 9};
+
 // Start indexing at 2.
-for (auto pr : enumerate(pi, 2)) {
-    // pr is of type std::pair<size_t, int>
-    std::cout << pr << ' ';
-}
+enumerate(pi, 2)
 // (2, 3) (3, 1) (4, 4) (5, 1) (6, 5) (7, 9)
+
 // Start indexing at 0 (default).
-const auto indexed = enumerate(pi)
-print_range(indexed.begin(), indexed.end());
+enumerate(pi)
 // (0, 3) (1, 1) (2, 4) (3, 1) (4, 5) (5, 9)
 ```
 
@@ -56,17 +54,16 @@ print_range(indexed.begin(), indexed.end());
 
 As nice as streams are, input output in C++ can, at times, seem a bit archaic compared to Python. With libraries such as Click, command line arguments to a Python script are incredibly easy to parse. We provide some argument parsing capability in `argparse`, which returns a vector of templated type. The function performs the appropriate conversions from `argc` and `argv`.
 
-The header also defines a stream insertion operator for `std::pair` types. This feeds directly into the incredibly useful `print_range` function, which takes an iterator range. The `sep` and `end` parameters can be used to change the string used *between* entries as well as the string used *after* every entry. Together, they can print out ranges for both non-associative and associative data structures since iterators for the latter dereference into `std::pair`.
+The header also defines a stream insertion operator for `std::pair` types. The `sep` and `end` parameters can be used to change the string used *between* entries as well as the string used *after* every entry. Together, they can print out ranges for both non-associative and associative data structures since iterators for the latter dereference into `std::pair`.
 
 ```c++
 const std::unordered_map<int, int> square {
     {1, 1}, {2, 4}, {3, 9}, {4, 16}
 };
-print_range(square.begin(), square.end());
+for (const auto& pair : square) {
+    cout << pair << ' ';
+}
 // (1, 1) (2, 4) (3, 9) (4, 16)
-const std::vector<int> jenny {8, 6, 7, 5, 3, 0, 9};
-print_range(jenny.begin(), jenny.end(), " - ", " :)\n");
-// 8 - 6 - 7 - 5 - 3 - 0 - 9 :)
 ```
 
 Last but not least, we are often interested in the character, word, and line count for a file. At the command line, this is achieved using `wc file.txt`. The library provides the following functionality.
@@ -102,19 +99,15 @@ const string s2 = "123";
 // OLD WAY
 for (char x : s1) {
     for (char y : s2) {
-        std::cout << std::make_pair(x, y) << ' ';
+        std::make_pair(x, y);
     }
 }
 // (a, 1) (a, 2) (a, 3) (b, 1) (b, 2) (b, 3) (c, 1) (c, 2) (c, 3)
 
 // NEW WAY
-for (auto pr : product(s1, s2)) {
-    // pr is a pair of chars.
-    std::cout << pr << ' ';
-}
+product(s1, s2)
 // (a, 1) (a, 2) (a, 3) (b, 1) (b, 2) (b, 3) (c, 1) (c, 2) (c, 3)
-const auto prod = product(s2, s1);
-print_range(prod.begin(), prod.end());
+product(s2, s1);
 // (1, a) (1, b) (1, c) (2, a) (2, b) (2, c) (3, a) (3, b) (3, c)
 ```
 
@@ -179,6 +172,7 @@ The library provides a C++ container slicer that mirrors Python list slicing. Ju
 ```python
 # IN PYTHON
 nums = range(50)
+
 # Suppose start, stop, and step are random integers.
 nums[::]                # or nums[:]
 nums[start::]           # or nums[start:]
@@ -194,6 +188,7 @@ nums[start:stop:step]
 // IN C++
 std::vector<int> nums (50);
 std::iota(nums.begin(), nums.end(), 0);
+
 // Suppose start, stop, and step are random integers.
 slice(nums);
 slice(nums, start);
@@ -218,12 +213,9 @@ We lose the nice syntax of the for-range loop. In Python, this is solved by usin
 ```c++
 const std::vector<int> jenny {8, 6, 7, 5, 3, 0, 9};
 const std::string zippy = "zippy";
-for (auto pr : zip(jenny, zippy)) {
-    // pr is of type std::pair<int, char>
-    std::cout << pr << ' ';
-}
+
+zip(jenny, zippy); // std::pair<int, char>
 // (8, z) (6, i) (7, p) (5, p) (3, y)
-const auto parallel = zip(zippy, jenny);
-print_range(parallel.begin(), parallel.end());
+zip(zippy, jenny); // std::pair<char, int>
 // (z, 8) (i, 6) (p, 7) (p, 5) (y, 3)
 ```

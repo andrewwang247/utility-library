@@ -27,11 +27,12 @@ class enumerate {
   explicit enumerate(const C &, size_t = 0);
 
   // Declare forward iterators.
-  class iterator : public std::iterator<
-                       std::forward_iterator_tag,
-                       std::pair<size_t, typename C::value_type>, ptrdiff_t,
-                       const std::pair<size_t, typename C::value_type> *,
-                       const std::pair<size_t, typename C::value_type> &> {
+  class iterator {
+    using iterator_category = std::forward_iterator_tag;
+    using value_type = std::pair<size_t, typename C::value_type>;
+    using difference_type = ptrdiff_t;
+    using pointer = const value_type *;
+    using reference = const value_type &;
     friend class enumerate;
 
    private:

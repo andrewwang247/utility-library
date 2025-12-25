@@ -27,14 +27,12 @@ class zip {
   zip(const C1 &, const C2 &);
 
   // Declare forward iterators.
-  class iterator
-      : public std::iterator<
-            std::forward_iterator_tag,
-            std::pair<typename C1::value_type, typename C2::value_type>,
-            ptrdiff_t,
-            const std::pair<typename C1::value_type, typename C2::value_type> *,
-            const std::pair<typename C1::value_type, typename C2::value_type>
-                &> {
+  class iterator {
+    using iterator_category = std::forward_iterator_tag;
+    using value_type = std::pair<typename C1::value_type, typename C2::value_type>;
+    using difference_type = ptrdiff_t;
+    using pointer = const value_type *;
+    using reference = const value_type &;
     friend class zip;
 
    private:
@@ -94,10 +92,10 @@ inline typename zip<C1, C2>::iterator zip<C1, C2>::end() const {
   const auto sz_1 = container_1.size();
   const auto sz_2 = container_2.size();
   if (sz_1 < sz_2) {
-    const auto iter = std::next(container_2.cbegin(), sz_1);
+    const auto iter = std::next(container_2.cbegin(), static_cast<ptrdiff_t>(sz_1));
     return iterator(container_1.cend(), iter);
   } else {
-    const auto iter = std::next(container_1.cbegin(), sz_2);
+    const auto iter = std::next(container_1.cbegin(), static_cast<ptrdiff_t>(sz_2));
     return iterator(iter, container_2.cend());
   }
 }

@@ -27,14 +27,12 @@ class product {
    */
   product(const C1 &, const C2 &);
 
-  class iterator
-      : public std::iterator<
-            std::forward_iterator_tag,
-            std::pair<typename C1::value_type, typename C2::value_type>,
-            ptrdiff_t,
-            const std::pair<typename C1::value_type, typename C2::value_type> *,
-            const std::pair<typename C1::value_type, typename C2::value_type>
-                &> {
+  class iterator {
+    using iterator_category = std::forward_iterator_tag;
+    using value_type = std::pair<typename C1::value_type, typename C2::value_type>;
+    using difference_type = ptrdiff_t;
+    using pointer = const value_type *;
+    using reference = const value_type &;
     friend class product;
 
    private:

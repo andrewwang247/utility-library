@@ -27,7 +27,7 @@ std::vector<T> argparse(int argc, const char **argv) {
   static_assert(std::is_same_v<T, std::string> || std::is_arithmetic_v<T>);
   // Prepare and reserve a vector to store items.
   std::vector<T> items;
-  items.reserve(argc - 1);
+  items.reserve(static_cast<size_t>(argc - 1));
   // The type is either a string or a numerical type.
   for (int i = 1; i < argc; ++i) {
     if constexpr (std::is_same_v<T, std::string>) {
@@ -49,21 +49,6 @@ std::vector<T> argparse(int argc, const char **argv) {
 template <typename S, typename T>
 std::ostream &operator<<(std::ostream &os, const std::pair<S, T> &p) {
   return os << '(' << p.first << ", " << p.second << ')';
-}
-
-/**
- * Prints all items in the range [begin, end) to cout.
- * Entries are separated by sep.
- */
-template <typename InputIterator>
-void print_range(InputIterator start, InputIterator stop, std::string sep = " ",
-                 std::string end = "\n", std::ostream &os = std::cout) {
-  for (auto iter = start; iter != stop; ++iter) {
-    if (std::next(iter) != stop)
-      os << *iter << sep;
-    else
-      os << *iter << end;
-  }
 }
 
 /**

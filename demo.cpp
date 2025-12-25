@@ -70,7 +70,10 @@ void demo_enumerate() {
   cout << "\n--- ENUMERATE DEMO ---\n";
   const vector<string> vec{"iterate", "over", "this", "with", "the", "index"};
   cout << "Original list:\n\t";
-  print_range(vec.begin(), vec.end(), ", ");
+  for (const auto &s : vec) {
+    cout << s << ' ';
+  }
+  cout << '\n';
 
   cout << "For-range loop, start at 7:\n\t";
   for (auto pr : enumerate(vec, 7)) {
@@ -78,8 +81,10 @@ void demo_enumerate() {
   }
 
   cout << "\nRange of pairs, default start:\n\t";
-  const auto indexed = enumerate(vec);
-  print_range(indexed.begin(), indexed.end());
+  for (auto pr : enumerate(vec)) {
+    cout << pr << ' ';
+  }
+  cout << '\n';
 }
 
 void demo_io() {
@@ -88,13 +93,16 @@ void demo_io() {
   const char* argv[5] = {"demo", "-42", "47", "-35", "12"};
   const auto args = argparse<int>(argc, argv);
   cout << "Command line args: ";
-  print_range(args.begin(), args.end(), ", ", " :)\n");
+  for (auto arg : args) cout << arg << ' ';
+  cout << '\n';
 
   unordered_map<string, size_t> counter{{"characters", wc<char>("io.h")},
                                         {"words", wc<string>("io.h")},
                                         {"lines", wc<line>("io.h")}};
-  cout << "Stats for io.h: ";
-  print_range(counter.begin(), counter.end(), " -> ");
+  cout << "Stats for io.h:\n";
+  for (const auto& pair : counter) {
+    cout << '\t' << pair << '\n';
+  }
 }
 
 void demo_product() {
@@ -110,20 +118,30 @@ void demo_product() {
   cout << '\n';
 
   cout << "Iterating over cartesian product: \"123\" x \"abc\".\n\t";
-  const product prod(s2, s1);
-  print_range(prod.begin(), prod.end());
+  for (auto pr : product(s2, s1)) {
+    cout << pr << ' ';
+  }
+  cout << '\n';
 }
 
 void demo_range() {
   cout << "\n--- RANGE DEMO ---\n";
   cout << "range(10): ";
-  for (auto i : range(10)) cout << i << ' ';
+  for (auto i : range(10)) {
+    cout << i << ' ';
+  }
   cout << "\nrange(-7): ";
-  for (auto i : range(-7)) cout << i << ' ';
+  for (auto i : range(-7)) {
+    cout << i << ' ';
+  }
   cout << "\nrange(-5, 4): ";
-  for (auto i : range(-5, 4)) cout << i << ' ';
+  for (auto i : range(-5, 4)) {
+    cout << i << ' ';
+  }
   cout << "\nrange(4, -5): ";
-  for (auto i : range(4, -5)) cout << i << ' ';
+  for (auto i : range(4, -5)) {
+    cout << i << ' ';
+  }
   cout << '\n';
 }
 
@@ -135,24 +153,35 @@ void demo_sequence() {
 
   const auto sl1 = slice(nums, -1, 2, -2);
   cout << "\tnums[-1:2:-2]: ";
-  print_range(sl1.begin(), sl1.end());
+  for (auto i : sl1) {
+    cout << i << ' ';
+  }
+  cout << '\n';
 
   const auto sl2 = slice(nums, 3, 8, 2);
   cout << "\tnums[3:8:2]: ";
-  print_range(sl2.begin(), sl2.end());
+  for (auto i : sl2) {
+    cout << i << ' ';
+  }
+  cout << '\n';
 
   const string wd = "watch_dogs_2";
   cout << "Original string: " << wd << '\n';
   const auto tokens = split(wd, '_');
   cout << "After splitting on underscore: ";
-  print_range(tokens.begin(), tokens.end(), ", ");
+  for (auto token : tokens) {
+    cout << token << ' ';
+  }
   auto restored = join(tokens.begin(), tokens.end(), "**");
-  cout << "After rejoining with double star: " << restored << '\n';
+  cout << "\nAfter rejoining with double star: " << restored << '\n';
   const string str_wd = "&*watch&*dogs&*2&*";
   const string delim = "&*";
   cout << "Splitting " << str_wd << " on &*: ";
   auto str_toks = split(str_wd, delim);
-  print_range(str_toks.begin(), str_toks.end(), ", ");
+  for (auto token : str_toks) {
+    cout << token << ' ';
+  }
+  cout << '\n';
 }
 
 void demo_zip() {
@@ -161,15 +190,21 @@ void demo_zip() {
   const string str("yay zippers");
 
   cout << "Original objects:\n\t";
-  print_range(vec.begin(), vec.end(), "");
+  for (auto obj : vec) {
+    cout << obj << ' ';
+  }
+  cout << '\n';
   cout << '\t' << str << '\n';
 
   cout << "Numbers then letters:\n";
   for (auto pr : zip(vec, str)) {
-    cout << pr << ' ';
+    cout << '\t' << pr << ' ';
   }
 
   cout << "\nLetters then numbers:\n";
   const auto join = zip(str, vec);
-  print_range(join.begin(), join.end());
+  for (auto pr : join) {
+    cout << '\t' << pr << ' ';
+  }
+  cout << '\n';
 }

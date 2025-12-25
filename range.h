@@ -30,8 +30,12 @@ class range {
   /**
    * Bidirectional iterators on range.
    */
-  class iterator : public std::iterator<std::bidirectional_iterator_tag, T,
-                                        ptrdiff_t, const T *, const T &> {
+  class iterator {
+    using iterator_category = std::bidirectional_iterator_tag;
+    using value_type = T;
+    using difference_type = ptrdiff_t;
+    using pointer = const T *;
+    using reference = const T &;
     friend class range;
 
    private:
