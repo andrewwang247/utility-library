@@ -1,5 +1,5 @@
 /*
-Copyright 2020. Siwei Wang.
+Copyright 2026. Andrew Wang.
 
 Demo functionality.
 */
@@ -66,12 +66,12 @@ void demo_contains() {
     cout << "11 is a prime number.\n";
   }
 
-  const unordered_map<string, int> age{{"siwei", 21}, {"grace", 16}};
-  if (contains_key(age, string("siwei"))) {
-    cout << "siwei is a registered name.\n";
+  const unordered_map<string, int> age{{"Andrew", 21}, {"grace", 16}};
+  if (contains_key(age, string("Andrew"))) {
+    cout << "Andrew is a registered name.\n";
   }
 
-  const unordered_set<string> names{"siwei", "grace"};
+  const unordered_set<string> names{"Andrew", "grace"};
   if (!contains(names, string("yolanda"))) {
     cout << "yolanda is not contained.\n";
   }

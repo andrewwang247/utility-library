@@ -1,5 +1,5 @@
 /*
-Copyright 2020. Siwei Wang.
+Copyright 2026. Andrew Wang.
 
 Python-like parallel iteration for two containers.
 */
